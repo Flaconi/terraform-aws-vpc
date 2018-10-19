@@ -17,3 +17,9 @@ resource "null_resource" "tags_as_list_of_maps" {
     "propagate_at_launch", "true"
   )}"
 }
+
+locals {
+  bastion_asg_name = "${var.name}-bastion-asg"
+  bastion_elb_name = "${var.name}-bastion-elb"
+  bastion_lc_name  = "${var.name}-bastion-lc"
+}

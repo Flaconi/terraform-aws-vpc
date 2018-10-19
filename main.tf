@@ -109,7 +109,7 @@ resource "aws_security_group_rule" "all_egress" {
 # Bastion Host ELB
 # -------------------------------------------------------------------------------------------------
 resource "aws_elb" "bastion" {
-  name            = "${var.name}-bastion-elb"
+  name            = "${local.bastion_elb_name}"
   subnets         = ["${data.aws_subnet_ids.public.ids}"]
   security_groups = ["${aws_security_group.bastion_elb.id}"]
 
@@ -171,7 +171,7 @@ data "template_file" "user_data" {
 }
 
 resource "aws_launch_configuration" "bastion" {
-  name_prefix       = "${var.name}-bastion-lc"
+  name_prefix       = "${local.bastion_lc_name}"
   image_id          = "${data.aws_ami.bastion.image_id}"
   instance_type     = "${var.bastion_instance_type}"
   user_data         = "${data.template_file.user_data.rendered}"
@@ -190,7 +190,7 @@ resource "aws_launch_configuration" "bastion" {
 }
 
 resource "aws_autoscaling_group" "bastion" {
-  name = "${var.name}-bastion-asg"
+  name = "${local.bastion_asg_name}"
 
   # ASG needs to go into the private subnets, as it would get a public IP address otherwise
   # this is nonetheless if associate_public_ip_address is set to false.
@@ -220,7 +220,7 @@ resource "aws_autoscaling_group" "bastion" {
   ]
 
   tags = ["${concat(
-    list(map("key", "Name", "value", "${var.name}-bastion-asg", "propagate_at_launch", true)),
+    list(map("key", "Name", "value", "${local.bastion_asg_name}", "propagate_at_launch", true)),
     local.tags_asg_format
   )}"]
 
