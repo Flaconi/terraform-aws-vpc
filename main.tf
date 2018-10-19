@@ -19,26 +19,12 @@ module "aws_vpc" {
   private_subnet_tags = "${var.private_subnet_tags}"
 }
 
-data "aws_vpc" "this" {
-  id = "${module.aws_vpc.vpc_id}"
-}
-
-data "aws_subnet_ids" "private" {
-  vpc_id = "${data.aws_vpc.this.id}"
-  tags   = "${var.private_subnet_tags}"
-}
-
-data "aws_subnet_ids" "public" {
-  vpc_id = "${data.aws_vpc.this.id}"
-  tags   = "${var.public_subnet_tags}"
-}
-
 # -------------------------------------------------------------------------------------------------
 # Bastion Host ELB Security Groups
 # -------------------------------------------------------------------------------------------------
 resource "aws_security_group" "bastion_elb" {
   name_prefix = "${var.name}-bastion-elb-ssh"
-  vpc_id      = "${data.aws_vpc.this.id}"
+  vpc_id      = "${module.aws_vpc.vpc_id}"
   description = "ELB bastion host security group (only SSH inbound access is allowed)"
   tags        = "${merge(map("Name", "${var.name}-bastion-elb"), "${var.tags}")}"
 
@@ -74,7 +60,7 @@ resource "aws_security_group_rule" "bastion_elb_all_egress" {
 # -------------------------------------------------------------------------------------------------
 resource "aws_security_group" "bastion" {
   name_prefix = "${var.name}-bastion-ssh-from-elb"
-  vpc_id      = "${data.aws_vpc.this.id}"
+  vpc_id      = "${module.aws_vpc.vpc_id}"
   description = "Bastion host security group (only SSH inbound access from ELB is allowed)"
   tags        = "${merge(map("Name", "${var.name}-bastion"), "${var.tags}")}"
 
@@ -110,7 +96,7 @@ resource "aws_security_group_rule" "all_egress" {
 # -------------------------------------------------------------------------------------------------
 resource "aws_elb" "bastion" {
   name            = "${local.bastion_elb_name}"
-  subnets         = ["${data.aws_subnet_ids.public.ids}"]
+  subnets         = ["${module.aws_vpc.public_subnets}"]
   security_groups = ["${aws_security_group.bastion_elb.id}"]
 
   listener {
@@ -196,7 +182,7 @@ resource "aws_autoscaling_group" "bastion" {
   # ASG needs to go into the private subnets, as it would get a public IP address otherwise
   # this is nonetheless if associate_public_ip_address is set to false.
   # We have a public ELB anyway that routes to this bastion host.
-  vpc_zone_identifier = ["${data.aws_subnet_ids.private.ids}"]
+  vpc_zone_identifier = ["${module.aws_vpc.private_subnets}"]
 
   desired_capacity          = "1"
   min_size                  = "1"
