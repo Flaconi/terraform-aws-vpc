@@ -84,7 +84,7 @@ variable "bastion_ssh_cidr_blocks" {
 
 variable "bastion_create_dns" {
   description = "A boolean to indicate whether or not we should assign a custom DNS record to the bastion hosts ELB."
-  default     = true
+  default     = false
 }
 
 variable "bastion_host_route53_public_zone_name" {

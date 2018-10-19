@@ -37,7 +37,7 @@ Todo
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| bastion_create_dns | A boolean to indicate whether or not we should assign a custom DNS record to the bastion hosts ELB. | string | `true` | no |
+| bastion_create_dns | A boolean to indicate whether or not we should assign a custom DNS record to the bastion hosts ELB. | string | `false` | no |
 | bastion_host_route53_public_zone_name | The Route53 public zone DNS name to use for bastion host DNS. This only needs to be specified if bastion_create_dns is set to true. | string | `` | no |
 | bastion_instance_type | EC2 instance type of bastion host. | string | `t2.micro` | no |
 | bastion_ssh_cidr_blocks | A list of CIDR's from which one can connect to the bastion host ELB | list | `<list>` | no |
