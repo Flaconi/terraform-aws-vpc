@@ -222,7 +222,7 @@ resource "aws_autoscaling_group" "bastion" {
   tags = ["${concat(
     list(map("key", "Name", "value", "${var.name}-bastion-asg", "propagate_at_launch", true)),
     local.tags_asg_format
-	)}"]
+  )}"]
 
   lifecycle {
     create_before_destroy = true
