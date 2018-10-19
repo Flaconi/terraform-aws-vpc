@@ -116,7 +116,7 @@ data "aws_route53_zone" "bastion" {
 resource "aws_route53_record" "bastion" {
   count   = "${var.bastion_create_dns ? 1 : 0}"
   zone_id = "${data.aws_route53_zone.bastion.zone_id}"
-  name    = "bastion-${var.name}.${data.aws_route53_zone.bastion.name}"
+  name    = "${var.bastion_subdomain}.${data.aws_route53_zone.bastion.name}"
   type    = "A"
 
   alias {
