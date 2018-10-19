@@ -109,7 +109,7 @@ resource "aws_elb" "bastion" {
 
 data "aws_route53_zone" "bastion" {
   count        = "${var.bastion_create_dns ? 1 : 0}"
-  name         = "${var.bastion_host_route53_public_zone_name}."
+  name         = "${var.bastion_route53_public_zone_name}."
   private_zone = false
 }
 

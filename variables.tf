@@ -87,13 +87,13 @@ variable "bastion_create_dns" {
   default     = false
 }
 
-variable "bastion_host_route53_public_zone_name" {
+variable "bastion_route53_public_zone_name" {
   description = "The Route53 public zone DNS name to use for bastion host DNS. This only needs to be specified if bastion_create_dns is set to true."
   default     = ""
 }
 
 variable "bastion_subdomain" {
-  description = "The subdomain name for the Bastion host. The domain part will be taken from bastion_host_route53_public_zone_name. This only needs to be specified if bastion_create_dns is set to true."
+  description = "The subdomain name for the Bastion host. The domain part will be taken from bastion_route53_public_zone_name. This only needs to be specified if bastion_create_dns is set to true."
   default     = "bastion"
 }
 
