@@ -19,17 +19,17 @@ module "aws_vpc" {
   private_subnet_tags = "${var.private_subnet_tags}"
 }
 
-data "aws_vpc" "vault" {
+data "aws_vpc" "this" {
   id = "${module.aws_vpc.vpc_id}"
 }
 
 data "aws_subnet_ids" "private" {
-  vpc_id = "${data.aws_vpc.vault.id}"
+  vpc_id = "${data.aws_vpc.this.id}"
   tags   = "${var.private_subnet_tags}"
 }
 
 data "aws_subnet_ids" "public" {
-  vpc_id = "${data.aws_vpc.vault.id}"
+  vpc_id = "${data.aws_vpc.this.id}"
   tags   = "${var.public_subnet_tags}"
 }
 
@@ -38,7 +38,7 @@ data "aws_subnet_ids" "public" {
 # -------------------------------------------------------------------------------------------------
 resource "aws_security_group" "bastion_elb" {
   name_prefix = "${var.name}-bastion-elb-ssh"
-  vpc_id      = "${data.aws_vpc.vault.id}"
+  vpc_id      = "${data.aws_vpc.this.id}"
   description = "ELB bastion host security group (only SSH inbound access is allowed)"
   tags        = "${merge(map("Name", "${var.name}-bastion-elb"), "${var.tags}")}"
 
@@ -74,7 +74,7 @@ resource "aws_security_group_rule" "bastion_elb_all_egress" {
 # -------------------------------------------------------------------------------------------------
 resource "aws_security_group" "bastion" {
   name_prefix = "${var.name}-bastion-ssh-from-elb"
-  vpc_id      = "${data.aws_vpc.vault.id}"
+  vpc_id      = "${data.aws_vpc.this.id}"
   description = "Bastion host security group (only SSH inbound access from ELB is allowed)"
   tags        = "${merge(map("Name", "${var.name}-bastion"), "${var.tags}")}"
 
