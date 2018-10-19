@@ -109,7 +109,7 @@ resource "aws_security_group_rule" "all_egress" {
 # Bastion Host ELB
 # -------------------------------------------------------------------------------------------------
 resource "aws_elb" "bastion" {
-  name            = "foobar-terraform-elb"
+  name            = "${var.name}-bastion-elb"
   subnets         = ["${data.aws_subnet_ids.public.ids}"]
   security_groups = ["${aws_security_group.bastion_elb.id}"]
 
