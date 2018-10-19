@@ -12,4 +12,3 @@ output "public_subnets" {
   description = "List of IDs of public subnets"
   value       = ["${module.aws_vpc.public_subnets}"]
 }
-
