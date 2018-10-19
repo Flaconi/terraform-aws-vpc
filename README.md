@@ -25,6 +25,10 @@ module "vpc" {
 }
 ```
 
+## Examples
+
+* [VPC with bastion](examples/vpc-with-bastion/)
+
 ## Testing
 
 Todo
