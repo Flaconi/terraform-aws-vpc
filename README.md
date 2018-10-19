@@ -56,7 +56,11 @@ Todo
 
 ## Outputs
 
-Todo
+| Name | Description |
+|------|-------------|
+| private_subnets | List of IDs of private subnets |
+| public_subnets | List of IDs of public subnets |
+| vpc_id | The ID of the VPC |
 
 ## License
 
