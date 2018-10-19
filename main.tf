@@ -192,6 +192,9 @@ resource "aws_launch_configuration" "bastion" {
 resource "aws_autoscaling_group" "bastion" {
   name = "${var.name}-bastion-asg"
 
+  # ASG needs to go into the private subnets, as it would get a public IP address otherwise
+  # this is nonetheless if associate_public_ip_address is set to false.
+  # We have a public ELB anyway that routes to this bastion host.
   vpc_zone_identifier = ["${data.aws_subnet_ids.private.ids}"]
 
   desired_capacity          = "1"
