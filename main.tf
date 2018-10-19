@@ -184,9 +184,9 @@ resource "aws_autoscaling_group" "bastion" {
   # We have a public ELB anyway that routes to this bastion host.
   vpc_zone_identifier = ["${module.aws_vpc.private_subnets}"]
 
-  desired_capacity          = "1"
-  min_size                  = "1"
-  max_size                  = "1"
+  desired_capacity          = "${var.bastion_cluster_size}"
+  min_size                  = "${var.bastion_cluster_size}"
+  max_size                  = "${var.bastion_cluster_size}"
   health_check_grace_period = "60"
   health_check_type         = "EC2"
   force_delete              = false

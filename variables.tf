@@ -101,3 +101,8 @@ variable "bastion_instance_type" {
   description = "EC2 instance type of bastion host."
   default     = "t2.micro"
 }
+
+variable "bastion_cluster_size" {
+  description = "The number of Bastion host server nodes to deploy."
+  default     = 1
+}
