@@ -29,7 +29,7 @@ variable "vpc_enable_vpn_gateway" {
 }
 
 variable "name" {
-  description = "The name(-prefix) tag to apply to all VPC resources"
+  description = "The name(-prefix) to prepend/apply to all Name tags on all VPC resources"
 }
 
 # -------------------------------------------------------------------------------------------------

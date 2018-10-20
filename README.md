@@ -46,7 +46,7 @@ Todo
 | bastion_ssh_cidr_blocks | A list of CIDR's from which one can connect to the bastion host ELB | list | `<list>` | no |
 | bastion_ssh_keys | A list of public ssh keys to add to authorized_keys file | list | - | yes |
 | bastion_subdomain | The subdomain name for the Bastion host. The domain part will be taken from bastion_route53_public_zone_name. This only needs to be specified if bastion_create_dns is set to true. | string | `bastion` | no |
-| name | The name(-prefix) tag to apply to all VPC resources | string | - | yes |
+| name | The name(-prefix) to prepend/apply to all Name tags on all VPC resources | string | - | yes |
 | private_subnet_tags | A map of additional tags to apply to all private subnets | map | `<map>` | no |
 | public_subnet_tags | A map of additional tags to apply to all public subnets | map | `<map>` | no |
 | tags | A map of additional tags to apply to all VPC resources | map | `<map>` | no |
