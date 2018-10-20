@@ -99,6 +99,8 @@ resource "aws_elb" "bastion" {
   subnets         = ["${module.aws_vpc.public_subnets}"]
   security_groups = ["${aws_security_group.bastion_elb.id}"]
 
+  tags = "${var.tags}"
+
   listener {
     instance_port     = 22
     instance_protocol = "TCP"
