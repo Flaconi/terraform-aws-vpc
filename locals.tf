@@ -19,7 +19,7 @@ resource "null_resource" "tags_as_list_of_maps" {
 }
 
 locals {
-  bastion_asg_name = "${var.name}-bastion-asg"
-  bastion_elb_name = "${var.name}-bastion-elb"
-  bastion_lc_name  = "${var.name}-bastion-lc"
+  bastion_asg_name = "${var.bastion_name == "" ? "${var.name}-bastion" : var.bastion_name}"
+  bastion_elb_name = "${var.bastion_name == "" ? "${var.name}-bastion" : var.bastion_name}"
+  bastion_lc_name  = "${var.bastion_name == "" ? "${var.name}-bastion" : var.bastion_name}"
 }

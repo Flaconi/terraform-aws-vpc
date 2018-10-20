@@ -41,6 +41,7 @@ Todo
 | bastion_cluster_size | The number of Bastion host server nodes to deploy. | string | `1` | no |
 | bastion_create_dns | A boolean to indicate whether or not we should assign a custom DNS record to the bastion hosts ELB. | string | `false` | no |
 | bastion_instance_type | EC2 instance type of bastion host. | string | `t2.micro` | no |
+| bastion_name | If not empty will overwrite the bastion host name specified by 'name' | string | `` | no |
 | bastion_route53_public_zone_name | The Route53 public zone DNS name to use for bastion host DNS. This only needs to be specified if bastion_create_dns is set to true. | string | `` | no |
 | bastion_ssh_cidr_blocks | A list of CIDR's from which one can connect to the bastion host ELB | list | `<list>` | no |
 | bastion_ssh_keys | A list of public ssh keys to add to authorized_keys file | list | - | yes |

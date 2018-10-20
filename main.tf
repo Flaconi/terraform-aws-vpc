@@ -179,7 +179,7 @@ resource "aws_launch_configuration" "bastion" {
 }
 
 resource "aws_autoscaling_group" "bastion" {
-  name = "${local.bastion_asg_name}"
+  name_prefix = "${local.bastion_asg_name}"
 
   # ASG needs to go into the private subnets, as it would get a public IP address otherwise
   # this is nonetheless if associate_public_ip_address is set to false.

@@ -65,6 +65,11 @@ variable "private_subnet_tags" {
   }
 }
 
+variable "bastion_name" {
+  description = "If not empty will overwrite the bastion host name specified by 'name'"
+  default     = ""
+}
+
 # -------------------------------------------------------------------------------------------------
 # Bastion Host (required)
 # -------------------------------------------------------------------------------------------------
