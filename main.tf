@@ -28,6 +28,20 @@ resource "aws_security_group" "bastion_elb" {
   description = "ELB bastion host security group (only SSH inbound access is allowed)"
   tags        = "${merge(map("Name", "${var.name}-bastion-elb"), "${var.tags}")}"
 
+  ingress {
+    from_port         = "22"
+    to_port           = "22"
+    protocol          = "tcp"
+    cidr_blocks       = "${var.bastion_ssh_cidr_blocks}"
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   revoke_rules_on_delete = true
 
   # Ensure a new sg is in place before destroying the current one.
@@ -35,24 +49,6 @@ resource "aws_security_group" "bastion_elb" {
   lifecycle {
     create_before_destroy = true
   }
-}
-
-resource "aws_security_group_rule" "bastion_elb_ssh_ingress" {
-  type              = "ingress"
-  from_port         = "22"
-  to_port           = "22"
-  protocol          = "tcp"
-  cidr_blocks       = "${var.bastion_ssh_cidr_blocks}"
-  security_group_id = "${aws_security_group.bastion_elb.id}"
-}
-
-resource "aws_security_group_rule" "bastion_elb_all_egress" {
-  type              = "egress"
-  from_port         = "0"
-  to_port           = "65535"
-  protocol          = "all"
-  cidr_blocks       = ["0.0.0.0/0"]
-  security_group_id = "${aws_security_group.bastion_elb.id}"
 }
 
 # -------------------------------------------------------------------------------------------------
@@ -64,6 +60,20 @@ resource "aws_security_group" "bastion" {
   description = "Bastion host security group (only SSH inbound access from ELB is allowed)"
   tags        = "${merge(map("Name", "${var.name}-bastion"), "${var.tags}")}"
 
+  ingress {
+    from_port       = "22"
+    to_port         = "22"
+    protocol        = "tcp"
+    security_groups = ["${aws_security_group.bastion_elb.id}"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   revoke_rules_on_delete = true
 
   # Ensure a new sg is in place before destroying the current one.
@@ -71,24 +81,6 @@ resource "aws_security_group" "bastion" {
   lifecycle {
     create_before_destroy = true
   }
-}
-
-resource "aws_security_group_rule" "ssh_ingress" {
-  type                     = "ingress"
-  from_port                = "22"
-  to_port                  = "22"
-  protocol                 = "tcp"
-  source_security_group_id = "${aws_security_group.bastion_elb.id}"
-  security_group_id        = "${aws_security_group.bastion.id}"
-}
-
-resource "aws_security_group_rule" "all_egress" {
-  type              = "egress"
-  from_port         = "0"
-  to_port           = "65535"
-  protocol          = "all"
-  cidr_blocks       = ["0.0.0.0/0"]
-  security_group_id = "${aws_security_group.bastion.id}"
 }
 
 # -------------------------------------------------------------------------------------------------
