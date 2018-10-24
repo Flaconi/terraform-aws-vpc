@@ -14,7 +14,7 @@ output "public_subnets" {
 }
 
 output "bastion_asg_name" {
-	value = "${aws_autoscaling_group.bastion.name}"
+  value = "${aws_autoscaling_group.bastion.name}"
 }
 
 output "bastion_launch_config_name" {
@@ -33,10 +33,10 @@ output "bastion_security_group_id" {
 
 output "bastion_elb_fqdn" {
   description = "The auto-generated FQDN of the bastion ELB."
-	value       = "${module.aws_elb.fqdn}"
+  value       = "${module.aws_elb.fqdn}"
 }
 
 output "bastion_route53_public_dns_name" {
   description = "The route53 public dns name of the bastion ELB if set."
-	value       = "${module.aws_elb.route53_public_dns_name}"
+  value       = "${module.aws_elb.route53_public_dns_name}"
 }

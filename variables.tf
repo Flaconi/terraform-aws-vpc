@@ -89,7 +89,7 @@ variable "bastion_ssh_cidr_blocks" {
 
 variable "bastion_route53_public_dns_name" {
   description = "If set, the bastion ELB will be assigned this public DNS name via Route53."
-  default = ""
+  default     = ""
 }
 
 variable "bastion_instance_type" {

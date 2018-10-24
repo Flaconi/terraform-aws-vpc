@@ -12,9 +12,9 @@ module "aws_vpc" {
   enable_nat_gateway = "${var.vpc_enable_nat_gateway}"
   enable_vpn_gateway = "${var.vpc_enable_vpn_gateway}"
 
-  name                = "${var.name}"
-  tags                = "${var.tags}"
-  vpc_tags            = "${var.vpc_tags}"
+  name     = "${var.name}"
+  tags     = "${var.tags}"
+  vpc_tags = "${var.vpc_tags}"
 
   public_subnet_tags  = "${var.public_subnet_tags}"
   private_subnet_tags = "${var.private_subnet_tags}"
