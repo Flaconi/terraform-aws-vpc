@@ -15,109 +15,32 @@ module "aws_vpc" {
   name                = "${var.name}"
   tags                = "${var.tags}"
   vpc_tags            = "${var.vpc_tags}"
+
   public_subnet_tags  = "${var.public_subnet_tags}"
   private_subnet_tags = "${var.private_subnet_tags}"
 }
 
 # -------------------------------------------------------------------------------------------------
-# Bastion Host ELB Security Groups
+# Bastion ELB
 # -------------------------------------------------------------------------------------------------
-resource "aws_security_group" "bastion_elb" {
-  name_prefix = "${var.name}-bastion-elb-ssh"
-  vpc_id      = "${module.aws_vpc.vpc_id}"
-  description = "ELB bastion host security group (only SSH inbound access is allowed)"
-  tags        = "${merge(map("Name", "${var.name}-bastion-elb"), "${var.tags}")}"
+module "aws_elb" {
+  source = "github.com/Flaconi/terraform-aws-elb?ref=v0.1.0"
 
-  ingress {
-    from_port         = "22"
-    to_port           = "22"
-    protocol          = "tcp"
-    cidr_blocks       = "${var.bastion_ssh_cidr_blocks}"
-  }
+  name       = "${local.bastion_elb_name}"
+  vpc_id     = "${module.aws_vpc.vpc_id}"
+  subnet_ids = "${module.aws_vpc.public_subnets}"
 
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+  # Listener
+  lb_port       = "22"
+  instance_port = "22"
 
-  revoke_rules_on_delete = true
+  # Security
+  inbound_cidr_blocks = ["0.0.0.0/0"]
 
-  # Ensure a new sg is in place before destroying the current one.
-  # This will/should prevent any race-conditions.
-  lifecycle {
-    create_before_destroy = true
-  }
-}
-
-# -------------------------------------------------------------------------------------------------
-# Bastion Host Security Groups
-# -------------------------------------------------------------------------------------------------
-resource "aws_security_group" "bastion" {
-  name_prefix = "${var.name}-bastion-ssh-from-elb"
-  vpc_id      = "${module.aws_vpc.vpc_id}"
-  description = "Bastion host security group (only SSH inbound access from ELB is allowed)"
-  tags        = "${merge(map("Name", "${var.name}-bastion"), "${var.tags}")}"
-
-  ingress {
-    from_port       = "22"
-    to_port         = "22"
-    protocol        = "tcp"
-    security_groups = ["${aws_security_group.bastion_elb.id}"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  revoke_rules_on_delete = true
-
-  # Ensure a new sg is in place before destroying the current one.
-  # This will/should prevent any race-conditions.
-  lifecycle {
-    create_before_destroy = true
-  }
-}
-
-# -------------------------------------------------------------------------------------------------
-# Bastion Host ELB
-# -------------------------------------------------------------------------------------------------
-resource "aws_elb" "bastion" {
-  name            = "${local.bastion_elb_name}"
-  subnets         = ["${module.aws_vpc.public_subnets}"]
-  security_groups = ["${aws_security_group.bastion_elb.id}"]
+  # DNS
+  route53_public_dns_name = "${var.bastion_route53_public_dns_name}"
 
   tags = "${var.tags}"
-
-  listener {
-    instance_port     = 22
-    instance_protocol = "TCP"
-    lb_port           = 22
-    lb_protocol       = "TCP"
-  }
-}
-
-data "aws_route53_zone" "bastion" {
-  count        = "${var.bastion_create_dns ? 1 : 0}"
-  name         = "${var.bastion_route53_public_zone_name}."
-  private_zone = false
-}
-
-resource "aws_route53_record" "bastion" {
-  count   = "${var.bastion_create_dns ? 1 : 0}"
-  zone_id = "${data.aws_route53_zone.bastion.zone_id}"
-  name    = "${var.bastion_subdomain}.${data.aws_route53_zone.bastion.name}"
-  type    = "A"
-
-  alias {
-    name                   = "${aws_elb.bastion.dns_name}"
-    zone_id                = "${aws_elb.bastion.zone_id}"
-    evaluate_target_health = false
-  }
 }
 
 # -------------------------------------------------------------------------------------------------
@@ -149,6 +72,38 @@ data "template_file" "user_data" {
     ssh_user = "ec2-user"
     ssh_keys = "${join("\n", "${var.bastion_ssh_keys}")}"
   }
+}
+
+resource "aws_security_group" "bastion" {
+  name_prefix = "${local.bastion_sg_name}"
+  description = "Security group for the ${local.bastion_lc_name} launch configuration"
+  vpc_id      = "${module.aws_vpc.vpc_id}"
+
+  ingress {
+    from_port       = "22"
+    to_port         = "22"
+    protocol        = "tcp"
+    security_groups = ["${module.aws_elb.security_group_id}"]
+    description     = "External SSH. Allow SSH access to bastion instances from this security group (by ELB or instance)."
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "AWS default egress rule"
+  }
+
+  revoke_rules_on_delete = true
+
+  # Ensure a new sg is in place before destroying the current one.
+  # This will/should prevent any race-conditions.
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  tags = "${merge(var.tags, map("Name", local.bastion_asg_name))}"
 }
 
 resource "aws_launch_configuration" "bastion" {
@@ -187,7 +142,7 @@ resource "aws_autoscaling_group" "bastion" {
   wait_for_capacity_timeout = 0
   launch_configuration      = "${aws_launch_configuration.bastion.name}"
 
-  load_balancers = ["${aws_elb.bastion.name}"]
+  load_balancers = ["${module.aws_elb.id}"]
 
   enabled_metrics = [
     "GroupMinSize",

@@ -18,9 +18,6 @@ module "aws_vpc" {
     Project     = "terraform-module-vpc"
   }
 
-  # Do not create a Route53 DNS name
-  bastion_create_dns = false
-
   # A list of public SSH keys to add to authorized_keys inside the bastion host
   bastion_ssh_keys = ["ssh-ed25519 AAAAC3Nznte5aaCdi1a1Lzaai/tX6Mc2E+S6g3lrClL09iBZ5cW2OZdSIqomcMko my-public-sshkey"]
 }
