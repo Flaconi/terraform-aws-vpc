@@ -10,7 +10,7 @@ behind an ELB with optionally a CNAME for it.
 
 ```hcl
 module "vpc" {
-  source  = "github.com/Flaconi/terraform-modules-vpc?ref=v0.0.1"
+  source  = "github.com/Flaconi/terraform-modules-vpc?ref=v0.1.0"
 
   vpc_cidr            = "12.0.0.0/16"
   vpc_subnet_azs      = ["eu-central-1a", "eu-central-1b", "eu-central-1c"]
