@@ -22,10 +22,9 @@ module "vpc" {
 
   name = "my-project"
 
-  bastion_ssh_keys                  = ["ssh-ed25519 AAAAC3Nznte5aaCdi1a1Lzaai/tX6Mc2E+S6g3lrClL09iBZ5cW2OZdSIqomcMko 2 mysshkey"]
-  bastion_create_dns                = true
-  bastion_route53_public_zone_name" = "my-project.example.com"
-  bastion_subdomain"                = "bastion-host"
+  bastion_ssh_keys                = ["ssh-ed25519 AAAAC3Nznte5aaCdi1a1Lzaai/tX6Mc2E+S6g3lrClL09iBZ5cW2OZdSIqomcMko 2 mysshkey"]
+  bastion_route53_public_dns_name = "my-project.example.com"
+  bastion_subdomain"              = "bastion-host"
 }
 ```
 
