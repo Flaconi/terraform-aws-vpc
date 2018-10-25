@@ -20,16 +20,21 @@ variable "vpc_public_subnets" {
   type        = "list"
 }
 
+variable "name" {
+  description = "The name(-prefix) to prepend/apply to all Name tags on all VPC resources"
+}
+
+# -------------------------------------------------------------------------------------------------
+# VPC (optional)
+# -------------------------------------------------------------------------------------------------
 variable "vpc_enable_nat_gateway" {
   description = "A boolean that enables or disables NAT gateways for private subnets"
+  default     = true
 }
 
 variable "vpc_enable_vpn_gateway" {
   description = "A boolean that enables or disables a VPN gateways for the VPC"
-}
-
-variable "name" {
-  description = "The name(-prefix) to prepend/apply to all Name tags on all VPC resources"
+  default     = false
 }
 
 # -------------------------------------------------------------------------------------------------

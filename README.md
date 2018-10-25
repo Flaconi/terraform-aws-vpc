@@ -40,9 +40,9 @@ module "vpc" {
 | vpc_subnet_azs | A list of AZ's to use to spawn subnets over | list | - | yes |
 | vpc_private_subnets | A list of private subnet CIDR's | list | - | yes |
 | vpc_public_subnets | A list of public subnet CIDR's | list | - | yes |
-| vpc_enable_nat_gateway | A boolean that enables or disables NAT gateways for private subnets | string | - | yes |
-| vpc_enable_vpn_gateway | A boolean that enables or disables a VPN gateways for the VPC | string | - | yes |
 | name | The name(-prefix) to prepend/apply to all Name tags on all VPC resources | string | - | yes |
+| vpc_enable_nat_gateway | A boolean that enables or disables NAT gateways for private subnets | string | `true` | no |
+| vpc_enable_vpn_gateway | A boolean that enables or disables a VPN gateways for the VPC | string | `false` | no |
 | tags | A map of additional tags to apply to all VPC resources | map | `<map>` | no |
 | vpc_tags | A map of additional tags to apply to the VPC | map | `<map>` | no |
 | public_subnet_tags | A map of additional tags to apply to all public subnets | map | `<map>` | no |
