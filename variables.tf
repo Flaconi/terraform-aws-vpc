@@ -20,16 +20,21 @@ variable "vpc_public_subnets" {
   type        = "list"
 }
 
+variable "name" {
+  description = "The name(-prefix) to prepend/apply to all Name tags on all VPC resources"
+}
+
+# -------------------------------------------------------------------------------------------------
+# VPC (optional)
+# -------------------------------------------------------------------------------------------------
 variable "vpc_enable_nat_gateway" {
   description = "A boolean that enables or disables NAT gateways for private subnets"
+  default     = true
 }
 
 variable "vpc_enable_vpn_gateway" {
   description = "A boolean that enables or disables a VPN gateways for the VPC"
-}
-
-variable "name" {
-  description = "The name(-prefix) tag to apply to all VPC resources"
+  default     = false
 }
 
 # -------------------------------------------------------------------------------------------------
@@ -65,6 +70,11 @@ variable "private_subnet_tags" {
   }
 }
 
+variable "bastion_name" {
+  description = "If not empty will overwrite the bastion host name specified by 'name'"
+  default     = ""
+}
+
 # -------------------------------------------------------------------------------------------------
 # Bastion Host (required)
 # -------------------------------------------------------------------------------------------------
@@ -82,17 +92,17 @@ variable "bastion_ssh_cidr_blocks" {
   default     = ["0.0.0.0/0"]
 }
 
-variable "bastion_create_dns" {
-  description = "A boolean to indicate whether or not we should assign a custom DNS record to the bastion hosts ELB."
-  default     = false
-}
-
-variable "bastion_host_route53_public_zone_name" {
-  description = "The Route53 public zone DNS name to use for bastion host DNS. This only needs to be specified if bastion_create_dns is set to true."
+variable "bastion_route53_public_dns_name" {
+  description = "If set, the bastion ELB will be assigned this public DNS name via Route53."
   default     = ""
 }
 
 variable "bastion_instance_type" {
   description = "EC2 instance type of bastion host."
   default     = "t2.micro"
+}
+
+variable "bastion_cluster_size" {
+  description = "The number of Bastion host server nodes to deploy."
+  default     = 1
 }
