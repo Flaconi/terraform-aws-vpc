@@ -1,5 +1,5 @@
 module "aws_vpc" {
-  source = "../../"
+  source = "../.."
 
   vpc_cidr            = "10.10.0.0/16"
   vpc_subnet_azs      = ["eu-central-1a", "eu-central-1b", "eu-central-1c"]
