@@ -35,7 +35,7 @@ module "aws_elb" {
   instance_port = "22"
 
   # Security
-  inbound_cidr_blocks = ["0.0.0.0/0"]
+  inbound_cidr_blocks = ["${var.bastion_ssh_cidr_blocks}"]
 
   # DNS
   route53_public_dns_name = "${var.bastion_route53_public_dns_name}"
