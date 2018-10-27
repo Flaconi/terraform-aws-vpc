@@ -61,8 +61,10 @@ module "vpc" {
 | vpc_id | The ID of the VPC |
 | private_subnets | List of IDs of private subnets |
 | public_subnets | List of IDs of public subnets |
-| bastion_asg_name | - |
-| bastion_launch_config_name | - |
+| bastion_asg_name | Autoscaling group name of the bastion host |
+| bastion_launch_config_name | Launch configuration name of the bastion host |
+| bastion_instance_ids | List of EC2 instance ids of deployed bastion hosts |
+| bastion_private_ips | List of private IPs of deployed bastion hosts |
 | bastion_elb_security_group_id | The ID of the SSH security group of the bastion host that can be attached to any other private instance in order to ssh into it. |
 | bastion_security_group_id | The ID of the SSH security group of the bastion host that can be attached to any other private instance in order to ssh into it. |
 | bastion_elb_fqdn | The auto-generated FQDN of the bastion ELB. |
