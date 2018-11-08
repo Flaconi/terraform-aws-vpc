@@ -29,23 +29,6 @@ output "bastion_launch_config_name" {
   value       = "${aws_launch_configuration.bastion.name}"
 }
 
-data "aws_instances" "bastion" {
-  filter {
-    name   = "tag:Name"
-    values = ["${local.bastion_asg_name}"]
-  }
-}
-
-output "bastion_instance_ids" {
-  description = "List of EC2 instance ids of deployed bastion hosts"
-  value       = ["${data.aws_instances.bastion.ids}"]
-}
-
-output "bastion_private_ips" {
-  description = "List of private IPs of deployed bastion hosts"
-  value       = ["${data.aws_instances.bastion.private_ips}"]
-}
-
 # -------------------------------------------------------------------------------------------------
 # Security Groups
 # -------------------------------------------------------------------------------------------------
