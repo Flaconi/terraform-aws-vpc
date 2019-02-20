@@ -86,7 +86,7 @@ variable "bastion_name" {
 variable "bastion_ssh_keys" {
   description = "A list of public ssh keys to add to authorized_keys file"
   type        = "list"
-  default     = ["0.0.0.0/0"]
+  default     = []
 }
 
 variable "bastion_ssh_cidr_blocks" {
