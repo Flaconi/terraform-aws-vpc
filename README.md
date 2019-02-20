@@ -1,5 +1,6 @@
 # Terraform Module VPC
 
+[![Build Status](https://travis-ci.com/Flaconi/terraform-aws-vpc.svg?branch=master)](https://travis-ci.com/Flaconi/terraform-aws-vpc)
 [![Tag](https://img.shields.io/github/tag/Flaconi/terraform-aws-vpc.svg)](https://github.com/Flaconi/terraform-aws-vpc/releases)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
