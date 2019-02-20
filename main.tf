@@ -26,7 +26,7 @@ module "aws_vpc" {
 module "aws_elb" {
   enable = "${var.vpc_enable_bastion_host}"
 
-  source = "github.com/cytopia/terraform-aws-elb?ref=v0.1.5"
+  source = "github.com/Flaconi/terraform-aws-elb?ref=v0.1.5"
 
   name       = "${local.bastion_elb_name}"
   vpc_id     = "${module.aws_vpc.vpc_id}"
