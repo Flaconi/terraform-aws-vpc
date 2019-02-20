@@ -38,38 +38,38 @@ module "vpc" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
+| name | The name(-prefix) to prepend/apply to all Name tags on all VPC resources | string | n/a | yes |
 | vpc\_cidr | The VPC CIDR to use for this VPC. | string | n/a | yes |
-| vpc\_subnet\_azs | A list of AZ's to use to spawn subnets over | list | n/a | yes |
 | vpc\_private\_subnets | A list of private subnet CIDR's | list | n/a | yes |
 | vpc\_public\_subnets | A list of public subnet CIDR's | list | n/a | yes |
-| name | The name(-prefix) to prepend/apply to all Name tags on all VPC resources | string | n/a | yes |
+| vpc\_subnet\_azs | A list of AZ's to use to spawn subnets over | list | n/a | yes |
+| bastion\_cluster\_size | The number of Bastion host server nodes to deploy. | string | `"1"` | no |
+| bastion\_instance\_type | EC2 instance type of bastion host. | string | `"t2.micro"` | no |
+| bastion\_name | If not empty will overwrite the bastion host name specified by 'name' | string | `""` | no |
+| bastion\_route53\_public\_dns\_name | If set, the bastion ELB will be assigned this public DNS name via Route53. | string | `""` | no |
+| bastion\_ssh\_cidr\_blocks | A list of CIDR's from which one can connect to the bastion host ELB | list | `[ "0.0.0.0/0" ]` | no |
+| bastion\_ssh\_keys | A list of public ssh keys to add to authorized_keys file | list | `[]` | no |
+| private\_subnet\_tags | A map of additional tags to apply to all private subnets | map | `{ "Visibility": "private" }` | no |
+| public\_subnet\_tags | A map of additional tags to apply to all public subnets | map | `{ "Visibility": "public" }` | no |
+| tags | A map of additional tags to apply to all VPC resources | map | `{}` | no |
+| vpc\_enable\_bastion\_host | A boolean that enables or disables the deployment of a bastion host in the private subnet with an ELB in front of it | string | `"false"` | no |
 | vpc\_enable\_nat\_gateway | A boolean that enables or disables NAT gateways for private subnets | string | `"true"` | no |
 | vpc\_enable\_vpn\_gateway | A boolean that enables or disables a VPN gateways for the VPC | string | `"false"` | no |
-| vpc\_enable\_bastion\_host | A boolean that enables or disables the deployment of a bastion host in the private subnet with an ELB in front of it | string | `"false"` | no |
-| tags | A map of additional tags to apply to all VPC resources | map | `<map>` | no |
-| vpc\_tags | A map of additional tags to apply to the VPC | map | `<map>` | no |
-| public\_subnet\_tags | A map of additional tags to apply to all public subnets | map | `<map>` | no |
-| private\_subnet\_tags | A map of additional tags to apply to all private subnets | map | `<map>` | no |
-| bastion\_name | If not empty will overwrite the bastion host name specified by 'name' | string | `""` | no |
-| bastion\_ssh\_keys | A list of public ssh keys to add to authorized_keys file | list | `<list>` | no |
-| bastion\_ssh\_cidr\_blocks | A list of CIDR's from which one can connect to the bastion host ELB | list | `<list>` | no |
-| bastion\_route53\_public\_dns\_name | If set, the bastion ELB will be assigned this public DNS name via Route53. | string | `""` | no |
-| bastion\_instance\_type | EC2 instance type of bastion host. | string | `"t2.micro"` | no |
-| bastion\_cluster\_size | The number of Bastion host server nodes to deploy. | string | `"1"` | no |
+| vpc\_tags | A map of additional tags to apply to the VPC | map | `{}` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| vpc\_id | The ID of the VPC |
+| bastion\_asg\_name | Autoscaling group name of the bastion host. (or empty string if bastion host is disabled) |
+| bastion\_elb\_fqdn | The auto-generated FQDN of the bastion ELB. |
+| bastion\_elb\_security\_group\_id | The ID of the SSH security group of the bastion host that can be attached to any other private instance in order to ssh into it. (or empty string if bastion host is disabled) |
+| bastion\_launch\_config\_name | Launch configuration name of the bastion host. (or empty string if bastion host is disabled) |
+| bastion\_route53\_public\_dns\_name | The route53 public dns name of the bastion ELB if set. |
+| bastion\_security\_group\_id | The ID of the SSH security group of the bastion host that can be attached to any other private instance in order to ssh into it. (or empty string if bastion host is disabled) |
 | private\_subnets | List of IDs of private subnets |
 | public\_subnets | List of IDs of public subnets |
-| bastion\_asg\_name | Autoscaling group name of the bastion host. (or empty string if bastion host is disabled) |
-| bastion\_launch\_config\_name | Launch configuration name of the bastion host. (or empty string if bastion host is disabled) |
-| bastion\_elb\_security\_group\_id | The ID of the SSH security group of the bastion host that can be attached to any other private instance in order to ssh into it. (or empty string if bastion host is disabled) |
-| bastion\_security\_group\_id | The ID of the SSH security group of the bastion host that can be attached to any other private instance in order to ssh into it. (or empty string if bastion host is disabled) |
-| bastion\_elb\_fqdn | The auto-generated FQDN of the bastion ELB. |
-| bastion\_route53\_public\_dns\_name | The route53 public dns name of the bastion ELB if set. |
+| vpc\_id | The ID of the VPC |
 
 ## License
 
