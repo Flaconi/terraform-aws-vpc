@@ -20,26 +20,26 @@ output "public_subnets" {
 # EC2
 # -------------------------------------------------------------------------------------------------
 output "bastion_asg_name" {
-  description = "Autoscaling group name of the bastion host"
-  value       = "${aws_autoscaling_group.bastion.name}"
+  description = "Autoscaling group name of the bastion host. (or empty string if bastion host is disabled)"
+  value       = "${join(",", aws_autoscaling_group.bastion.*.name)}"
 }
 
 output "bastion_launch_config_name" {
-  description = "Launch configuration name of the bastion host"
-  value       = "${aws_launch_configuration.bastion.name}"
+  description = "Launch configuration name of the bastion host. (or empty string if bastion host is disabled)"
+  value       = "${join(",", aws_launch_configuration.bastion.*.name)}"
 }
 
 # -------------------------------------------------------------------------------------------------
 # Security Groups
 # -------------------------------------------------------------------------------------------------
 output "bastion_elb_security_group_id" {
-  description = "The ID of the SSH security group of the bastion host that can be attached to any other private instance in order to ssh into it."
-  value       = "${module.aws_elb.security_group_id}"
+  description = "The ID of the SSH security group of the bastion host that can be attached to any other private instance in order to ssh into it. (or empty string if bastion host is disabled)"
+  value       = "${join(",", module.aws_elb.security_group_id)}"
 }
 
 output "bastion_security_group_id" {
-  description = "The ID of the SSH security group of the bastion host that can be attached to any other private instance in order to ssh into it."
-  value       = "${aws_security_group.bastion.id}"
+  description = "The ID of the SSH security group of the bastion host that can be attached to any other private instance in order to ssh into it. (or empty string if bastion host is disabled)"
+  value       = "${join(",", aws_security_group.bastion.*.id)}"
 }
 
 # -------------------------------------------------------------------------------------------------

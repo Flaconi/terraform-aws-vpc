@@ -37,6 +37,11 @@ variable "vpc_enable_vpn_gateway" {
   default     = false
 }
 
+variable "vpc_enable_bastion_host" {
+  description = "A boolean that enables or disables the deployment of a bastion host in the private subnet with an ELB in front of it"
+  default     = false
+}
+
 # -------------------------------------------------------------------------------------------------
 # Resource Tagging (optional)
 # -------------------------------------------------------------------------------------------------
@@ -70,22 +75,20 @@ variable "private_subnet_tags" {
   }
 }
 
+# -------------------------------------------------------------------------------------------------
+# Bastion Host (optional)
+# -------------------------------------------------------------------------------------------------
 variable "bastion_name" {
   description = "If not empty will overwrite the bastion host name specified by 'name'"
   default     = ""
 }
 
-# -------------------------------------------------------------------------------------------------
-# Bastion Host (required)
-# -------------------------------------------------------------------------------------------------
 variable "bastion_ssh_keys" {
   description = "A list of public ssh keys to add to authorized_keys file"
   type        = "list"
+  default     = []
 }
 
-# -------------------------------------------------------------------------------------------------
-# Bastion Host (optional)
-# -------------------------------------------------------------------------------------------------
 variable "bastion_ssh_cidr_blocks" {
   description = "A list of CIDR's from which one can connect to the bastion host ELB"
   type        = "list"

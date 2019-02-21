@@ -24,7 +24,9 @@ module "aws_vpc" {
 # Bastion ELB
 # -------------------------------------------------------------------------------------------------
 module "aws_elb" {
-  source = "github.com/Flaconi/terraform-aws-elb?ref=v0.1.0"
+  enable = "${var.vpc_enable_bastion_host}"
+
+  source = "github.com/Flaconi/terraform-aws-elb?ref=v0.1.5"
 
   name       = "${local.bastion_elb_name}"
   vpc_id     = "${module.aws_vpc.vpc_id}"
@@ -47,6 +49,8 @@ module "aws_elb" {
 # Bastion Host
 # -------------------------------------------------------------------------------------------------
 data "aws_ami" "bastion" {
+  count = "${var.vpc_enable_bastion_host ? 1 : 0}"
+
   most_recent = true
 
   filter {
@@ -66,6 +70,8 @@ data "aws_ami" "bastion" {
 }
 
 data "template_file" "user_data" {
+  count = "${var.vpc_enable_bastion_host ? 1 : 0}"
+
   template = "${file("${path.module}/user_data.sh")}"
 
   vars {
@@ -75,6 +81,8 @@ data "template_file" "user_data" {
 }
 
 resource "aws_security_group" "bastion" {
+  count = "${var.vpc_enable_bastion_host ? 1 : 0}"
+
   name_prefix = "${local.bastion_sg_name}"
   description = "Security group for the ${local.bastion_lc_name} launch configuration"
   vpc_id      = "${module.aws_vpc.vpc_id}"
@@ -107,6 +115,8 @@ resource "aws_security_group" "bastion" {
 }
 
 resource "aws_launch_configuration" "bastion" {
+  count = "${var.vpc_enable_bastion_host ? 1 : 0}"
+
   name_prefix       = "${local.bastion_lc_name}"
   image_id          = "${data.aws_ami.bastion.image_id}"
   instance_type     = "${var.bastion_instance_type}"
@@ -126,6 +136,8 @@ resource "aws_launch_configuration" "bastion" {
 }
 
 resource "aws_autoscaling_group" "bastion" {
+  count = "${var.vpc_enable_bastion_host ? 1 : 0}"
+
   name_prefix = "${local.bastion_asg_name}"
 
   # ASG needs to go into the private subnets, as it would get a public IP address otherwise
