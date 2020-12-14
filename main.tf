@@ -92,7 +92,7 @@ resource "aws_security_group" "bastion" {
     from_port       = "22"
     to_port         = "22"
     protocol        = "tcp"
-    security_groups = ["${module.aws_elb.security_group_id}"]
+    security_groups = ["${module.aws_elb.security_group_ids}"]
     description     = "External SSH. Allow SSH access to bastion instances from this security group (by ELB or instance)."
   }
 
