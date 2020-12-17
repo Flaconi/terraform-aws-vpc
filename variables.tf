@@ -95,6 +95,12 @@ variable "bastion_ssh_cidr_blocks" {
   default     = ["0.0.0.0/0"]
 }
 
+variable "bastion_security_group_names" {
+  description = "List of one or more security groups to be added to the load balancer"
+  type        = "list"
+  default     = []
+}
+
 variable "bastion_route53_public_dns_name" {
   description = "If set, the bastion ELB will be assigned this public DNS name via Route53."
   default     = ""

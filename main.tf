@@ -26,7 +26,7 @@ module "aws_vpc" {
 module "aws_elb" {
   enable = "${var.vpc_enable_bastion_host}"
 
-  source = "github.com/Flaconi/terraform-aws-elb?ref=v0.1.5"
+  source = "github.com/Flaconi/terraform-aws-elb?ref=v0.1.8"
 
   name       = "${local.bastion_elb_name}"
   vpc_id     = "${module.aws_vpc.vpc_id}"
@@ -37,7 +37,8 @@ module "aws_elb" {
   instance_port = "22"
 
   # Security
-  inbound_cidr_blocks = ["${var.bastion_ssh_cidr_blocks}"]
+  inbound_cidr_blocks  = ["${var.bastion_ssh_cidr_blocks}"]
+  security_group_names = ["${var.bastion_security_group_names}"]
 
   # DNS
   route53_public_dns_name = "${var.bastion_route53_public_dns_name}"
@@ -91,7 +92,7 @@ resource "aws_security_group" "bastion" {
     from_port       = "22"
     to_port         = "22"
     protocol        = "tcp"
-    security_groups = ["${module.aws_elb.security_group_id}"]
+    security_groups = ["${module.aws_elb.security_group_ids}"]
     description     = "External SSH. Allow SSH access to bastion instances from this security group (by ELB or instance)."
   }
 
