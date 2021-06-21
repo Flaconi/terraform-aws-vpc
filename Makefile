@@ -55,7 +55,6 @@ test:
 		echo "################################################################################"; \
 		if docker run -it --rm -v "$(CURRENT_DIR):/t" --workdir "$${DOCKER_PATH}" hashicorp/terraform:0.12.31 \
 			validate \
-				-check-variables=true \
 				.; then \
 			echo "OK"; \
 			docker run -it --rm -v "$(CURRENT_DIR):/t" --workdir "$${DOCKER_PATH}" --entrypoint=rm hashicorp/terraform:0.12.31 -rf .terraform/ || true; \
