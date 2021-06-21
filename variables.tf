@@ -7,17 +7,17 @@ variable "vpc_cidr" {
 
 variable "vpc_subnet_azs" {
   description = "A list of AZ's to use to spawn subnets over"
-  type        = "list"
+  type        = list(string)
 }
 
 variable "vpc_private_subnets" {
   description = "A list of private subnet CIDR's"
-  type        = "list"
+  type        = list(string)
 }
 
 variable "vpc_public_subnets" {
   description = "A list of public subnet CIDR's"
-  type        = "list"
+  type        = list(string)
 }
 
 variable "name" {
@@ -47,19 +47,19 @@ variable "vpc_enable_bastion_host" {
 # -------------------------------------------------------------------------------------------------
 variable "tags" {
   description = "A map of additional tags to apply to all VPC resources"
-  type        = "map"
+  type        = map(string)
   default     = {}
 }
 
 variable "vpc_tags" {
   description = "A map of additional tags to apply to the VPC"
-  type        = "map"
+  type        = map(string)
   default     = {}
 }
 
 variable "public_subnet_tags" {
   description = "A map of additional tags to apply to all public subnets"
-  type        = "map"
+  type        = map(string)
 
   default = {
     Visibility = "public"
@@ -68,7 +68,7 @@ variable "public_subnet_tags" {
 
 variable "private_subnet_tags" {
   description = "A map of additional tags to apply to all private subnets"
-  type        = "map"
+  type        = map(string)
 
   default = {
     Visibility = "private"
@@ -85,19 +85,19 @@ variable "bastion_name" {
 
 variable "bastion_ssh_keys" {
   description = "A list of public ssh keys to add to authorized_keys file"
-  type        = "list"
+  type        = list(string)
   default     = []
 }
 
 variable "bastion_ssh_cidr_blocks" {
   description = "A list of CIDR's from which one can connect to the bastion host ELB"
-  type        = "list"
+  type        = list(string)
   default     = ["0.0.0.0/0"]
 }
 
 variable "bastion_security_group_names" {
   description = "List of one or more security groups to be added to the load balancer"
-  type        = "list"
+  type        = list(string)
   default     = []
 }
 
