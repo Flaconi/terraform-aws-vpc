@@ -1,12 +1,39 @@
-# terraform-module-template
-Template for Terraform modules
+# Terraform Module VPC
 
-<!-- Uncomment and replace with your module name
-[![lint](https://github.com/flaconi/<MODULENAME>/workflows/lint/badge.svg)](https://github.com/flaconi/<MODULENAME>/actions?query=workflow%3Alint)
-[![test](https://github.com/flaconi/<MODULENAME>/workflows/test/badge.svg)](https://github.com/flaconi/<MODULENAME>/actions?query=workflow%3Atest)
-[![Tag](https://img.shields.io/github/tag/flaconi/<MODULENAME>.svg)](https://github.com/flaconi/<MODULENAME>/releases)
--->
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![lint](https://github.com/flaconi/terraform-aws-vpc/workflows/lint/badge.svg)](https://github.com/flaconi/terraform-aws-vpc/actions?query=workflow%3Alint)
+[![test](https://github.com/flaconi/terraform-aws-vpc/workflows/test/badge.svg)](https://github.com/flaconi/terraform-aws-vpc/actions?query=workflow%3Atest)
+[![Tag](https://img.shields.io/github/tag/flaconi/terraform-aws-vpc.svg)](https://github.com/flaconi/terraform-aws-vpc/releases)
+[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
+A Terraform module that creates a customizable VPC (based on the official [VPC module](https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws)) and optionally allows to provision a ELB protected bastion host with route53 controlled DNS name and unlimited number of SSH keys.
+
+## Usage example
+
+```hcl
+module "vpc" {
+  source  = "github.com/Flaconi/terraform-modules-vpc?ref=v2.1.0"
+
+  vpc_cidr            = "12.0.0.0/16"
+  vpc_subnet_azs      = ["eu-central-1a", "eu-central-1b", "eu-central-1c"]
+  vpc_private_subnets = ["12.0.1.0/24", "12.0.2.0/24", "12.0.3.0/24"]
+  vpc_public_subnets  = ["12.0.101.0/24", "12.0.102.0/24", "12.0.103.0/24"]
+
+  vpc_enable_nat_gateway  = true
+  vpc_enable_vpn_gateway  = false
+  vpc_enable_bastion_host = true
+
+  name = "my-project"
+
+  bastion_ssh_keys                = ["ssh-ed25519 AAAAC3Nznte5aaCdi1a1Lzaai/tX6Mc2E+S6g3lrClL09iBZ5cW2OZdSIqomcMko 2 mysshkey"]
+  bastion_route53_public_dns_name = "my-project.example.com"
+  bastion_subdomain"              = "bastion-host"
+}
+```
+
+## Examples
+
+* [VPC with bastion](examples/vpc-with-bastion/)
+* [VPC without bastion and only public subnets](examples/vpc-public-without-bastion/)
 
 <!-- TFDOCS_HEADER_START -->
 
