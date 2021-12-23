@@ -108,6 +108,22 @@ Type: `bool`
 
 Default: `true`
 
+### <a name="input_vpc_enable_dns_hostnames"></a> [vpc\_enable\_dns\_hostnames](#input\_vpc\_enable\_dns\_hostnames)
+
+Description: Should be true to enable DNS hostnames in the VPC
+
+Type: `bool`
+
+Default: `false`
+
+### <a name="input_vpc_enable_dns_support"></a> [vpc\_enable\_dns\_support](#input\_vpc\_enable\_dns\_support)
+
+Description: Should be true to enable DNS support in the VPC
+
+Type: `bool`
+
+Default: `true`
+
 ### <a name="input_vpc_enable_vpn_gateway"></a> [vpc\_enable\_vpn\_gateway](#input\_vpc\_enable\_vpn\_gateway)
 
 Description: A boolean that enables or disables a VPN gateways for the VPC

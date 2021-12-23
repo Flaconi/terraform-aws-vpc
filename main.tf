@@ -9,8 +9,10 @@ module "aws_vpc" {
   private_subnets = var.vpc_private_subnets
   public_subnets  = var.vpc_public_subnets
 
-  enable_nat_gateway = var.vpc_enable_nat_gateway
-  enable_vpn_gateway = var.vpc_enable_vpn_gateway
+  enable_nat_gateway   = var.vpc_enable_nat_gateway
+  enable_vpn_gateway   = var.vpc_enable_vpn_gateway
+  enable_dns_hostnames = var.vpc_enable_dns_hostnames
+  enable_dns_support   = var.vpc_enable_dns_support
 
   name     = var.name
   tags     = var.tags
