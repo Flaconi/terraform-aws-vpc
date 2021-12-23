@@ -2,7 +2,7 @@
 # VPC Resources
 # -------------------------------------------------------------------------------------------------
 module "aws_vpc" {
-  source = "github.com/terraform-aws-modules/terraform-aws-vpc?ref=v3.2.0"
+  source = "github.com/terraform-aws-modules/terraform-aws-vpc?ref=v3.11.0"
 
   cidr            = var.vpc_cidr
   azs             = var.vpc_subnet_azs
@@ -26,15 +26,15 @@ module "aws_vpc" {
 module "aws_elb" {
   enable = var.vpc_enable_bastion_host
 
-  source = "github.com/Flaconi/terraform-aws-elb?ref=v1.0.0"
+  source = "github.com/Flaconi/terraform-aws-elb?ref=v1.1.0"
 
   name       = local.bastion_elb_name
   vpc_id     = module.aws_vpc.vpc_id
   subnet_ids = module.aws_vpc.public_subnets
 
   # Listener
-  lb_port       = "22"
-  instance_port = "22"
+  lb_port       = 22
+  instance_port = 22
 
   # Security
   inbound_cidr_blocks  = var.bastion_ssh_cidr_blocks
