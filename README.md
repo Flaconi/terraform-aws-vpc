@@ -10,7 +10,7 @@ A Terraform module that creates a customizable VPC (based on the official [VPC m
 
 ```hcl
 module "vpc" {
-  source  = "github.com/Flaconi/terraform-modules-vpc?ref=v2.0.1"
+  source  = "github.com/Flaconi/terraform-modules-vpc?ref=v2.1.0"
 
   vpc_cidr            = "12.0.0.0/16"
   vpc_subnet_azs      = ["eu-central-1a", "eu-central-1b", "eu-central-1c"]
