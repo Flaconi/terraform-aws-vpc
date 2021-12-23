@@ -3,6 +3,7 @@
 # -------------------------------------------------------------------------------------------------
 variable "vpc_cidr" {
   description = "The VPC CIDR to use for this VPC."
+  type        = string
 }
 
 variable "vpc_subnet_azs" {
@@ -22,6 +23,7 @@ variable "vpc_public_subnets" {
 
 variable "name" {
   description = "The name(-prefix) to prepend/apply to all Name tags on all VPC resources"
+  type        = string
 }
 
 # -------------------------------------------------------------------------------------------------
@@ -29,16 +31,19 @@ variable "name" {
 # -------------------------------------------------------------------------------------------------
 variable "vpc_enable_nat_gateway" {
   description = "A boolean that enables or disables NAT gateways for private subnets"
+  type        = bool
   default     = true
 }
 
 variable "vpc_enable_vpn_gateway" {
   description = "A boolean that enables or disables a VPN gateways for the VPC"
+  type        = bool
   default     = false
 }
 
 variable "vpc_enable_bastion_host" {
   description = "A boolean that enables or disables the deployment of a bastion host in the private subnet with an ELB in front of it"
+  type        = bool
   default     = false
 }
 
@@ -80,6 +85,7 @@ variable "private_subnet_tags" {
 # -------------------------------------------------------------------------------------------------
 variable "bastion_name" {
   description = "If not empty will overwrite the bastion host name specified by 'name'"
+  type        = string
   default     = ""
 }
 
@@ -103,15 +109,18 @@ variable "bastion_security_group_names" {
 
 variable "bastion_route53_public_dns_name" {
   description = "If set, the bastion ELB will be assigned this public DNS name via Route53."
+  type        = string
   default     = ""
 }
 
 variable "bastion_instance_type" {
   description = "EC2 instance type of bastion host."
+  type        = string
   default     = "t2.micro"
 }
 
 variable "bastion_cluster_size" {
   description = "The number of Bastion host server nodes to deploy."
+  type        = number
   default     = 1
 }
