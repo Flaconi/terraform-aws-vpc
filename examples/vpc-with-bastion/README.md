@@ -25,7 +25,9 @@ Note that this example may create resources which can cost money (AWS Elastic IP
 
 ## Providers
 
-No providers.
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3 |
 
 ## Modules
 
@@ -35,7 +37,9 @@ No providers.
 
 ## Resources
 
-No resources.
+| Name | Type |
+|------|------|
+| [aws_eip.nat_gateway](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eip) | resource |
 
 ## Inputs
 

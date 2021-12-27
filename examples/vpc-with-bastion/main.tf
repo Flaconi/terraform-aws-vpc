@@ -6,6 +6,15 @@ provider "aws" {
 }
 
 # -------------------------------------------------------------------------------------------------
+locals {
+  names_of_eips_for_natgws = [
+    "test-subnet-1a",
+    "test-subnet-1b",
+    "test-subnet-1c",
+  ]
+  ids_of_eips_for_natgws = [ for eip in aws_eip.nat_gateway : eip.id ]
+}
+
 # VPC
 module "aws_vpc" {
   source = "../.."
@@ -18,6 +27,9 @@ module "aws_vpc" {
   vpc_enable_nat_gateway  = true
   vpc_enable_vpn_gateway  = false
   vpc_enable_bastion_host = true
+
+  vpc_reuse_nat_ips         = true
+  vpc_external_nat_ip_names = local.ids_of_eips_for_natgws
 
   name = "ci-vpc"
 

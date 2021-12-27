@@ -108,6 +108,22 @@ Type: `bool`
 
 Default: `true`
 
+### <a name="input_vpc_reuse_nat_ips"></a> [vpc\_reuse\_nat\_ips](#input\_vpc\_reuse\_nat\_ips)
+
+Description: Should be true if you don't want EIPs to be created for your NAT Gateways and will instead pass them in via the 'external\_nat\_ip\_ids' variable
+
+Type: `bool`
+
+Default: `false`
+
+### <a name="input_vpc_external_nat_ip_names"></a> [vpc\_external\_nat\_ip\_names](#input\_vpc\_external\_nat\_ip\_names)
+
+Description: "List of names used to select the allocated EIP(s) that will be associated with the NAT GW(s). These EIPs can be managed outside of this module but they should be with Terraform and should be part of the same state as this module's resources. In case you have an uneven distribution of subnets in your AZs (i.e. you use 2 AZs but create 3 private subnets) and you want to use externally managed EIPs with one NAT GW per AZ, you have to provide as many EIPs as NAT GWs. Otherwise you will see this in the EIPs state message: Elastic IP address [eipalloc-xxx] is already associated."
+
+Type: `list(string)`
+
+Default: `[]`
+
 ### <a name="input_vpc_enable_dns_hostnames"></a> [vpc\_enable\_dns\_hostnames](#input\_vpc\_enable\_dns\_hostnames)
 
 Description: Should be true to enable DNS hostnames in the VPC

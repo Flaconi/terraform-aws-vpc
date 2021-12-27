@@ -6,6 +6,8 @@
 # Credits: https://github.com/terraform-aws-modules/terraform-aws-autoscaling/blob/master/locals.tf
 locals {
   tags_asg_format = null_resource.tags_as_list_of_maps.*.triggers
+
+  ids_of_eips_for_natgws = [for eip in data.aws_eip.nat_gateway : eip.id]
 }
 
 resource "null_resource" "tags_as_list_of_maps" {
