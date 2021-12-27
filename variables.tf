@@ -67,6 +67,12 @@ variable "vpc_enable_vpn_gateway" {
   default     = false
 }
 
+variable "vpc_customer_gateways" {
+  description = "Maps of Customer Gateway's attributes (BGP ASN and Gateway's Internet-routable external IP address)"
+  type        = map(map(any))
+  default     = {}
+}
+
 variable "vpc_enable_bastion_host" {
   description = "A boolean that enables or disables the deployment of a bastion host in the private subnet with an ELB in front of it"
   type        = bool

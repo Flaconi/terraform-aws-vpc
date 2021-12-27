@@ -17,6 +17,8 @@ module "aws_vpc" {
   reuse_nat_ips       = var.vpc_reuse_nat_ips
   external_nat_ip_ids = local.ids_of_eips_for_natgws
 
+  customer_gateways = var.vpc_customer_gateways
+
   name     = var.name
   tags     = var.tags
   vpc_tags = var.vpc_tags
