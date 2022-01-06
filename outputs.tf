@@ -1,6 +1,11 @@
 # -------------------------------------------------------------------------------------------------
 # VPC
 # -------------------------------------------------------------------------------------------------
+output "name" {
+  description = "The name of the VPC"
+  value       = module.aws_vpc.name
+}
+
 output "vpc_id" {
   description = "The ID of the VPC"
   value       = module.aws_vpc.vpc_id
@@ -11,9 +16,24 @@ output "private_subnets" {
   value       = module.aws_vpc.private_subnets
 }
 
+output "private_route_table_ids" {
+  description = "List of IDs of private route tables"
+  value       = module.aws_vpc.private_route_table_ids
+}
+
 output "public_subnets" {
   description = "List of IDs of public subnets"
   value       = module.aws_vpc.public_subnets
+}
+
+output "vgw_id" {
+  description = "The ID of the VPN Gateway"
+  value       = module.aws_vpc.vgw_id
+}
+
+output "cgw_ids" {
+  description = "List of IDs of Customer Gateway"
+  value       = module.aws_vpc.cgw_ids
 }
 
 # -------------------------------------------------------------------------------------------------

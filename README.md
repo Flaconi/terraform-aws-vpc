@@ -283,8 +283,12 @@ Default: `1`
 | <a name="output_bastion_launch_config_name"></a> [bastion\_launch\_config\_name](#output\_bastion\_launch\_config\_name) | Launch configuration name of the bastion host. (or empty string if bastion host is disabled) |
 | <a name="output_bastion_route53_public_dns_name"></a> [bastion\_route53\_public\_dns\_name](#output\_bastion\_route53\_public\_dns\_name) | The route53 public dns name of the bastion ELB if set. |
 | <a name="output_bastion_security_group_id"></a> [bastion\_security\_group\_id](#output\_bastion\_security\_group\_id) | The ID of the SSH security group of the bastion host that can be attached to any other private instance in order to ssh into it. (or empty string if bastion host is disabled) |
+| <a name="output_cgw_ids"></a> [cgw\_ids](#output\_cgw\_ids) | List of IDs of Customer Gateway |
+| <a name="output_name"></a> [name](#output\_name) | The name of the VPC |
+| <a name="output_private_route_table_ids"></a> [private\_route\_table\_ids](#output\_private\_route\_table\_ids) | List of IDs of private route tables |
 | <a name="output_private_subnets"></a> [private\_subnets](#output\_private\_subnets) | List of IDs of private subnets |
 | <a name="output_public_subnets"></a> [public\_subnets](#output\_public\_subnets) | List of IDs of public subnets |
+| <a name="output_vgw_id"></a> [vgw\_id](#output\_vgw\_id) | The ID of the VPN Gateway |
 | <a name="output_vpc_id"></a> [vpc\_id](#output\_vpc\_id) | The ID of the VPC |
 
 <!-- TFDOCS_OUTPUTS_END -->
