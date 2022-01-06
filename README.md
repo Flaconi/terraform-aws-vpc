@@ -148,6 +148,14 @@ Type: `bool`
 
 Default: `false`
 
+### <a name="input_vpc_customer_gateways"></a> [vpc\_customer\_gateways](#input\_vpc\_customer\_gateways)
+
+Description: Maps of Customer Gateway's attributes (BGP ASN and Gateway's Internet-routable external IP address)
+
+Type: `map(map(any))`
+
+Default: `{}`
+
 ### <a name="input_vpc_enable_bastion_host"></a> [vpc\_enable\_bastion\_host](#input\_vpc\_enable\_bastion\_host)
 
 Description: A boolean that enables or disables the deployment of a bastion host in the private subnet with an ELB in front of it
