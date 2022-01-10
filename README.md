@@ -164,6 +164,14 @@ Type: `bool`
 
 Default: `false`
 
+### <a name="input_vpc_secondary_cidr_blocks"></a> [vpc\_secondary\_cidr\_blocks](#input\_vpc\_secondary\_cidr\_blocks)
+
+Description: List of secondary CIDR blocks to associate with the VPC to extend the IP Address pool
+
+Type: `list(string)`
+
+Default: `[]`
+
 ### <a name="input_tags"></a> [tags](#input\_tags)
 
 Description: A map of additional tags to apply to all VPC resources
