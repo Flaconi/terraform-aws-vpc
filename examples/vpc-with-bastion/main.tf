@@ -2,7 +2,7 @@
 # AWS Settings
 # -------------------------------------------------------------------------------------------------
 provider "aws" {
-  region  = "eu-central-1"
+  region = "eu-central-1"
 }
 
 # -------------------------------------------------------------------------------------------------
@@ -12,7 +12,7 @@ locals {
     "test-subnet-1b",
     "test-subnet-1c",
   ]
-  ids_of_eips_for_natgws = [ for eip in aws_eip.nat_gateway : eip.id ]
+  ids_of_eips_for_natgws = [for eip in aws_eip.nat_gateway : eip.id]
 }
 
 # VPC
