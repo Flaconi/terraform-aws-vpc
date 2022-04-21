@@ -2,7 +2,7 @@
 # VPC Resources
 # -------------------------------------------------------------------------------------------------
 module "aws_vpc" {
-  source = "github.com/terraform-aws-modules/terraform-aws-vpc?ref=v3.11.0"
+  source = "github.com/terraform-aws-modules/terraform-aws-vpc?ref=v3.14.0"
 
   cidr            = var.vpc_cidr
   azs             = var.vpc_subnet_azs
@@ -180,16 +180,23 @@ resource "aws_autoscaling_group" "bastion" {
     "GroupTotalInstances",
   ]
 
-  tags = concat(
-    [
-      {
-        "key"                 = "Name"
-        "value"               = local.bastion_asg_name
-        "propagate_at_launch" = true
-      }
-    ],
-    local.tags_asg_format,
-  )
+  dynamic "tag" {
+    for_each = concat(
+      [
+        {
+          key                 = "Name"
+          value               = local.bastion_asg_name
+          propagate_at_launch = true
+        }
+      ],
+      local.tags_asg_format,
+    )
+    content {
+      key                 = tag.value["key"]
+      value               = tag.value["value"]
+      propagate_at_launch = tag.value["propagate_at_launch"]
+    }
+  }
 
   lifecycle {
     create_before_destroy = true
