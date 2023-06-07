@@ -80,17 +80,6 @@ data "aws_ami" "bastion" {
   }
 }
 
-data "template_file" "user_data" {
-  count = var.vpc_enable_bastion_host ? 1 : 0
-
-  template = file("${path.module}/user_data.sh")
-
-  vars = {
-    ssh_user = "ec2-user"
-    ssh_keys = join("\n", var.bastion_ssh_keys)
-  }
-}
-
 resource "aws_security_group" "bastion" {
   count = var.vpc_enable_bastion_host ? 1 : 0
 
@@ -136,9 +125,14 @@ resource "aws_launch_configuration" "bastion" {
   name_prefix       = local.bastion_lc_name
   image_id          = data.aws_ami.bastion[0].image_id
   instance_type     = var.bastion_instance_type
-  user_data         = data.template_file.user_data[0].rendered
   security_groups   = [aws_security_group.bastion[0].id]
   enable_monitoring = false
+  user_data = templatefile("${path.module}/user_data.sh.tftpl",
+    {
+      ssh_user = "ec2-user"
+      ssh_keys = join("\n", var.bastion_ssh_keys)
+    }
+  )
 
   associate_public_ip_address = false
 
