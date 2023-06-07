@@ -46,8 +46,7 @@ module "vpc" {
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5 |
-| <a name="provider_null"></a> [null](#provider\_null) | n/a |
-| <a name="provider_template"></a> [template](#provider\_template) | n/a |
+| <a name="provider_null"></a> [null](#provider\_null) | >= 3 |
 
 <!-- TFDOCS_PROVIDER_END -->
 
@@ -58,6 +57,7 @@ module "vpc" {
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5 |
+| <a name="requirement_null"></a> [null](#requirement\_null) | >= 3 |
 
 <!-- TFDOCS_REQUIREMENTS_END -->
 
