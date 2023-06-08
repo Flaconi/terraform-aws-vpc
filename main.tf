@@ -9,6 +9,8 @@ module "aws_vpc" {
   private_subnets = var.vpc_private_subnets
   public_subnets  = var.vpc_public_subnets
 
+  map_public_ip_on_launch = true
+
   secondary_cidr_blocks = var.vpc_secondary_cidr_blocks
 
   enable_nat_gateway   = var.vpc_enable_nat_gateway
