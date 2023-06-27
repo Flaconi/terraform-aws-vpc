@@ -23,6 +23,8 @@ module "aws_vpc" {
 
   customer_gateways = var.vpc_customer_gateways
 
+  manage_default_route_table = false
+  manage_default_network_acl = false
   default_security_group_ingress = [{
     protocol  = -1
     self      = true
