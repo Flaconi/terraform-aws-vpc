@@ -23,6 +23,19 @@ module "aws_vpc" {
 
   customer_gateways = var.vpc_customer_gateways
 
+  default_security_group_ingress = [{
+    protocol  = -1
+    self      = true
+    from_port = 0
+    to_port   = 0
+  }]
+  default_security_group_egress = [{
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = "0.0.0.0/0"
+  }]
+
   name     = var.name
   tags     = var.tags
   vpc_tags = var.vpc_tags
