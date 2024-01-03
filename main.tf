@@ -2,7 +2,7 @@
 # VPC Resources
 # -------------------------------------------------------------------------------------------------
 module "aws_vpc" {
-  source = "github.com/terraform-aws-modules/terraform-aws-vpc?ref=v5.0.0"
+  source = "github.com/terraform-aws-modules/terraform-aws-vpc?ref=v5.4.0"
 
   cidr            = var.vpc_cidr
   azs             = var.vpc_subnet_azs
