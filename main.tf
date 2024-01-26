@@ -2,7 +2,7 @@
 # VPC Resources
 # -------------------------------------------------------------------------------------------------
 module "aws_vpc" {
-  source = "github.com/terraform-aws-modules/terraform-aws-vpc?ref=v5.4.0"
+  source = "github.com/terraform-aws-modules/terraform-aws-vpc?ref=v5.5.1"
 
   cidr            = var.vpc_cidr
   azs             = var.vpc_subnet_azs
@@ -18,8 +18,9 @@ module "aws_vpc" {
   enable_dns_hostnames = var.vpc_enable_dns_hostnames
   enable_dns_support   = var.vpc_enable_dns_support
 
-  reuse_nat_ips       = var.vpc_reuse_nat_ips
-  external_nat_ip_ids = local.ids_of_eips_for_natgws
+  one_nat_gateway_per_az = var.vpc_one_nat_gateway_per_az
+  reuse_nat_ips          = var.vpc_reuse_nat_ips
+  external_nat_ip_ids    = local.ids_of_eips_for_natgws
 
   customer_gateways = var.vpc_customer_gateways
 
