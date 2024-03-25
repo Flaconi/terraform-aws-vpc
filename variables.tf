@@ -168,3 +168,9 @@ variable "bastion_cluster_size" {
   type        = number
   default     = 1
 }
+
+variable "manage_default_security_group" {
+  description = "Should be true to adopt and manage default security group"
+  type        = bool
+  default     = true
+}
