@@ -26,6 +26,7 @@ module "aws_vpc" {
 
   manage_default_route_table = false
   manage_default_network_acl = false
+  manage_default_security_group = false
   default_security_group_ingress = [{
     protocol  = -1
     self      = true
