@@ -286,6 +286,14 @@ Type: `number`
 
 Default: `1`
 
+### <a name="input_manage_default_security_group"></a> [manage\_default\_security\_group](#input\_manage\_default\_security\_group)
+
+Description: Should be true to adopt and manage default security group
+
+Type: `bool`
+
+Default: `true`
+
 <!-- TFDOCS_INPUTS_END -->
 
 <!-- TFDOCS_OUTPUTS_START -->
