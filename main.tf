@@ -29,7 +29,7 @@ module "aws_vpc" {
   manage_default_security_group = var.manage_default_security_group
   default_security_group_ingress = [{
     protocol  = -1
-    self      = false
+    self      = true
     from_port = 0
     to_port   = 0
   }]
