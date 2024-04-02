@@ -24,21 +24,11 @@ module "aws_vpc" {
 
   customer_gateways = var.vpc_customer_gateways
 
-  manage_default_route_table    = false
-  manage_default_network_acl    = false
-  manage_default_security_group = var.manage_default_security_group
-  default_security_group_ingress = [{
-    protocol  = -1
-    self      = true
-    from_port = 0
-    to_port   = 0
-  }]
-  default_security_group_egress = [{
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = "0.0.0.0/0"
-  }]
+  manage_default_route_table     = false
+  manage_default_network_acl     = false
+  manage_default_security_group  = var.manage_default_security_group
+  default_security_group_ingress = var.default_security_group_ingress
+  default_security_group_egress  = var.default_security_group_egress
 
   name     = var.name
   tags     = var.tags

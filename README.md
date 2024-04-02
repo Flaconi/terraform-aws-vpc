@@ -294,6 +294,44 @@ Type: `bool`
 
 Default: `true`
 
+### <a name="input_default_security_group_ingress"></a> [default\_security\_group\_ingress](#input\_default\_security\_group\_ingress)
+
+Description: List of maps of ingress rules to set on the default security group
+
+Type: `list(map(string))`
+
+Default:
+
+```json
+[
+  {
+    "from_port": 0,
+    "protocol": -1,
+    "self": true,
+    "to_port": 0
+  }
+]
+```
+
+### <a name="input_default_security_group_egress"></a> [default\_security\_group\_egress](#input\_default\_security\_group\_egress)
+
+Description: List of maps of egress rules to set on the default security group
+
+Type: `list(map(string))`
+
+Default:
+
+```json
+[
+  {
+    "from_port": 0,
+    "protocol": "-1",
+    "self": true,
+    "to_port": 0
+  }
+]
+```
+
 <!-- TFDOCS_INPUTS_END -->
 
 <!-- TFDOCS_OUTPUTS_START -->
