@@ -179,7 +179,10 @@ variable "default_security_group_ingress" {
   description = "List of maps of ingress rules to set on the default security group"
   type        = list(map(string))
   default = [{
-    self = true
+    protocol  = -1
+    self      = true
+    from_port = 0
+    to_port   = 0
   }]
 }
 
@@ -187,6 +190,9 @@ variable "default_security_group_egress" {
   description = "List of maps of egress rules to set on the default security group"
   type        = list(map(string))
   default = [{
-    self = true
+    protocol  = "-1"
+    self      = true
+    from_port = 0
+    to_port   = 0
   }]
 }

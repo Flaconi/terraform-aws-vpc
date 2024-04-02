@@ -305,7 +305,10 @@ Default:
 ```json
 [
   {
-    "self": true
+    "from_port": 0,
+    "protocol": -1,
+    "self": true,
+    "to_port": 0
   }
 ]
 ```
@@ -321,7 +324,10 @@ Default:
 ```json
 [
   {
-    "self": true
+    "from_port": 0,
+    "protocol": "-1",
+    "self": true,
+    "to_port": 0
   }
 ]
 ```
