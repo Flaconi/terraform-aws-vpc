@@ -327,6 +327,7 @@ Default:
     "cidr_blocks": "0.0.0.0/0",
     "from_port": 0,
     "protocol": "-1",
+    "self": true,
     "to_port": 0
   }
 ]
