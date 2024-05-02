@@ -143,6 +143,9 @@ resource "aws_launch_configuration" "bastion" {
     }
   )
 
+  metadata_options {
+    http_tokens = "required"
+  }
   associate_public_ip_address = false
 
   root_block_device {
