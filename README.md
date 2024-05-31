@@ -342,7 +342,7 @@ Default:
 | <a name="output_bastion_asg_name"></a> [bastion\_asg\_name](#output\_bastion\_asg\_name) | Autoscaling group name of the bastion host. (or empty string if bastion host is disabled) |
 | <a name="output_bastion_elb_fqdn"></a> [bastion\_elb\_fqdn](#output\_bastion\_elb\_fqdn) | The auto-generated FQDN of the bastion ELB. |
 | <a name="output_bastion_elb_security_group_id"></a> [bastion\_elb\_security\_group\_id](#output\_bastion\_elb\_security\_group\_id) | The ID of the SSH security group of the bastion host that can be attached to any other private instance in order to ssh into it. (or empty string if bastion host is disabled) |
-| <a name="output_bastion_launch_config_name"></a> [bastion\_launch\_config\_name](#output\_bastion\_launch\_config\_name) | Launch configuration name of the bastion host. (or empty string if bastion host is disabled) |
+| <a name="output_bastion_launch_template_name"></a> [bastion\_launch\_template\_name](#output\_bastion\_launch\_template\_name) | Launch template name of the bastion host. (or empty string if bastion host is disabled) |
 | <a name="output_bastion_route53_public_dns_name"></a> [bastion\_route53\_public\_dns\_name](#output\_bastion\_route53\_public\_dns\_name) | The route53 public dns name of the bastion ELB if set. |
 | <a name="output_bastion_security_group_id"></a> [bastion\_security\_group\_id](#output\_bastion\_security\_group\_id) | The ID of the SSH security group of the bastion host that can be attached to any other private instance in order to ssh into it. (or empty string if bastion host is disabled) |
 | <a name="output_cgw_ids"></a> [cgw\_ids](#output\_cgw\_ids) | List of IDs of Customer Gateway |
