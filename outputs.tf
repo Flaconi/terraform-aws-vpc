@@ -44,9 +44,9 @@ output "bastion_asg_name" {
   value       = join(",", aws_autoscaling_group.bastion.*.name)
 }
 
-output "bastion_launch_config_name" {
-  description = "Launch configuration name of the bastion host. (or empty string if bastion host is disabled)"
-  value       = join(",", aws_launch_configuration.bastion.*.name)
+output "bastion_launch_template_name" {
+  description = "Launch template name of the bastion host. (or empty string if bastion host is disabled)"
+  value       = join(",", aws_launch_template.bastion.*.name)
 }
 
 # -------------------------------------------------------------------------------------------------

@@ -128,20 +128,19 @@ resource "aws_security_group" "bastion" {
   )
 }
 
-resource "aws_launch_configuration" "bastion" {
+resource "aws_launch_template" "bastion" {
   count = var.vpc_enable_bastion_host ? 1 : 0
 
-  name_prefix       = local.bastion_lc_name
-  image_id          = data.aws_ami.bastion[0].image_id
-  instance_type     = var.bastion_instance_type
-  security_groups   = [aws_security_group.bastion[0].id]
-  enable_monitoring = false
-  user_data = templatefile("${path.module}/user_data.sh.tftpl",
+  name_prefix            = local.bastion_lc_name
+  image_id               = data.aws_ami.bastion[0].image_id
+  instance_type          = var.bastion_instance_type
+  vpc_security_group_ids = [aws_security_group.bastion[0].id]
+  user_data = base64encode(templatefile("${path.module}/user_data.sh.tftpl",
     {
       ssh_user = "ec2-user"
       ssh_keys = join("\n", var.bastion_ssh_keys)
     }
-  )
+  ))
 
   metadata_options {
     http_tokens                 = "required"
@@ -149,10 +148,11 @@ resource "aws_launch_configuration" "bastion" {
     http_endpoint               = "enabled"
   }
 
-  associate_public_ip_address = false
-
-  root_block_device {
-    volume_size = "8"
+  block_device_mappings {
+    device_name = "/dev/sda1"
+    ebs {
+      volume_size = "8"
+    }
   }
 
   lifecycle {
@@ -174,7 +174,10 @@ resource "aws_autoscaling_group" "bastion" {
   health_check_type         = "EC2"
   force_delete              = false
   wait_for_capacity_timeout = 0
-  launch_configuration      = aws_launch_configuration.bastion[0].name
+  launch_template {
+    id      = aws_launch_template.bastion[0].id
+    version = aws_launch_template.bastion[0].latest_version
+  }
 
   load_balancers = [module.aws_elb.id]
 
