@@ -11,9 +11,19 @@ output "vpc_id" {
   value       = module.aws_vpc.vpc_id
 }
 
+output "vpc_cidr_block" {
+  description = "The CIDR block of the VPC"
+  value       = module.aws_vpc.vpc_cidr_block
+}
+
 output "private_subnets" {
   description = "List of IDs of private subnets"
   value       = module.aws_vpc.private_subnets
+}
+
+output "private_subnets_cidr_blocks" {
+  description = "List of cidr_blocks of private subnets"
+  value       = module.aws_vpc.private_subnets_cidr_blocks
 }
 
 output "private_route_table_ids" {
@@ -24,6 +34,16 @@ output "private_route_table_ids" {
 output "public_subnets" {
   description = "List of IDs of public subnets"
   value       = module.aws_vpc.public_subnets
+}
+
+output "public_subnets_cidr_blocks" {
+  description = "List of cidr_blocks of public subnets"
+  value       = module.aws_vpc.public_subnets_cidr_blocks
+}
+
+output "public_route_table_ids" {
+  description = "List of IDs of public route tables"
+  value       = module.aws_vpc.public_route_table_ids
 }
 
 output "vgw_id" {
