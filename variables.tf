@@ -157,6 +157,12 @@ variable "bastion_route53_public_dns_name" {
   default     = ""
 }
 
+variable "bastion_ami" {
+  description = "EC2 AMI ID for bastion host."
+  type        = string
+  default     = null
+}
+
 variable "bastion_instance_type" {
   description = "EC2 instance type of bastion host."
   type        = string

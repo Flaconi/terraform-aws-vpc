@@ -2,7 +2,7 @@
 # VPC Resources
 # -------------------------------------------------------------------------------------------------
 module "aws_vpc" {
-  source = "github.com/terraform-aws-modules/terraform-aws-vpc?ref=v5.13.0"
+  source = "github.com/terraform-aws-modules/terraform-aws-vpc?ref=v5.16.0"
 
   cidr            = var.vpc_cidr
   azs             = var.vpc_subnet_azs
@@ -132,15 +132,15 @@ resource "aws_launch_template" "bastion" {
   count = var.vpc_enable_bastion_host ? 1 : 0
 
   name_prefix            = local.bastion_lc_name
-  image_id               = data.aws_ami.bastion[0].image_id
+  image_id               = var.bastion_ami != null ? var.bastion_ami : data.aws_ami.bastion[0].image_id
   instance_type          = var.bastion_instance_type
   vpc_security_group_ids = [aws_security_group.bastion[0].id]
-  user_data = base64encode(templatefile("${path.module}/user_data.sh.tftpl",
+  user_data = length(var.bastion_ssh_keys) > 0 ? base64encode(templatefile("${path.module}/user_data.sh.tftpl",
     {
       ssh_user = "ec2-user"
       ssh_keys = join("\n", var.bastion_ssh_keys)
     }
-  ))
+  )) : null
 
   metadata_options {
     http_tokens                 = "required"
