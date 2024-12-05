@@ -270,6 +270,14 @@ Type: `string`
 
 Default: `""`
 
+### <a name="input_bastion_ami"></a> [bastion\_ami](#input\_bastion\_ami)
+
+Description: EC2 AMI ID for bastion host.
+
+Type: `string`
+
+Default: `null`
+
 ### <a name="input_bastion_instance_type"></a> [bastion\_instance\_type](#input\_bastion\_instance\_type)
 
 Description: EC2 instance type of bastion host.
