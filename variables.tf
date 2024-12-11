@@ -133,6 +133,12 @@ variable "bastion_name" {
   default     = ""
 }
 
+variable "bastion_ssh_user" {
+  description = "User name used for SSH-connections."
+  type        = string
+  default     = "ec2-user"
+}
+
 variable "bastion_ssh_keys" {
   description = "A list of public ssh keys to add to authorized_keys file"
   type        = list(string)
