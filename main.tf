@@ -137,7 +137,7 @@ resource "aws_launch_template" "bastion" {
   vpc_security_group_ids = [aws_security_group.bastion[0].id]
   user_data = length(var.bastion_ssh_keys) > 0 ? base64encode(templatefile("${path.module}/user_data.sh.tftpl",
     {
-      ssh_user = "ec2-user"
+      ssh_user = var.bastion_ssh_user
       ssh_keys = join("\n", var.bastion_ssh_keys)
     }
   )) : null

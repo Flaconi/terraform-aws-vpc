@@ -26,7 +26,7 @@ module "vpc" {
 
   bastion_ssh_keys                = ["ssh-ed25519 AAAAC3Nznte5aaCdi1a1Lzaai/tX6Mc2E+S6g3lrClL09iBZ5cW2OZdSIqomcMko 2 mysshkey"]
   bastion_route53_public_dns_name = "my-project.example.com"
-  bastion_subdomain"              = "bastion-host"
+  bastion_subdomain               = "bastion-host"
 }
 ```
 
@@ -231,6 +231,14 @@ Description: If not empty will overwrite the bastion host name specified by 'nam
 Type: `string`
 
 Default: `""`
+
+### <a name="input_bastion_ssh_user"></a> [bastion\_ssh\_user](#input\_bastion\_ssh\_user)
+
+Description: User name used for SSH-connections.
+
+Type: `string`
+
+Default: `"ec2-user"`
 
 ### <a name="input_bastion_ssh_keys"></a> [bastion\_ssh\_keys](#input\_bastion\_ssh\_keys)
 
