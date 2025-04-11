@@ -187,6 +187,12 @@ variable "manage_default_security_group" {
   default     = true
 }
 
+variable "default_security_group_name" {
+  description = "Name to be used on the default security group"
+  type        = string
+  default     = null
+}
+
 variable "default_security_group_ingress" {
   description = "List of maps of ingress rules to set on the default security group"
   type        = list(map(string))

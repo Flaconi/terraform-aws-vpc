@@ -2,7 +2,7 @@
 # VPC Resources
 # -------------------------------------------------------------------------------------------------
 module "aws_vpc" {
-  source = "github.com/terraform-aws-modules/terraform-aws-vpc?ref=v5.16.0"
+  source = "github.com/terraform-aws-modules/terraform-aws-vpc?ref=v5.19.0"
 
   cidr            = var.vpc_cidr
   azs             = var.vpc_subnet_azs
@@ -27,6 +27,7 @@ module "aws_vpc" {
   manage_default_route_table     = false
   manage_default_network_acl     = false
   manage_default_security_group  = var.manage_default_security_group
+  default_security_group_name    = var.default_security_group_name
   default_security_group_ingress = var.default_security_group_ingress
   default_security_group_egress  = var.default_security_group_egress
 

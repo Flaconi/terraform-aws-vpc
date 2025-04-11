@@ -310,6 +310,14 @@ Type: `bool`
 
 Default: `true`
 
+### <a name="input_default_security_group_name"></a> [default\_security\_group\_name](#input\_default\_security\_group\_name)
+
+Description: Name to be used on the default security group
+
+Type: `string`
+
+Default: `null`
+
 ### <a name="input_default_security_group_ingress"></a> [default\_security\_group\_ingress](#input\_default\_security\_group\_ingress)
 
 Description: List of maps of ingress rules to set on the default security group
