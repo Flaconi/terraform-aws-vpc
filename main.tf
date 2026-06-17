@@ -2,7 +2,7 @@
 # VPC Resources
 # -------------------------------------------------------------------------------------------------
 module "aws_vpc" {
-  source = "github.com/terraform-aws-modules/terraform-aws-vpc?ref=v5.19.0"
+  source = "github.com/terraform-aws-modules/terraform-aws-vpc?ref=v6.6.1"
 
   cidr            = var.vpc_cidr
   azs             = var.vpc_subnet_azs
@@ -45,7 +45,7 @@ module "aws_vpc" {
 module "aws_elb" {
   enable = var.vpc_enable_bastion_host
 
-  source = "github.com/Flaconi/terraform-aws-elb?ref=v2.0.0"
+  source = "github.com/Flaconi/terraform-aws-elb?ref=v3.0.0"
 
   name       = local.bastion_elb_name
   vpc_id     = module.aws_vpc.vpc_id
