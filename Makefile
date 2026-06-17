@@ -12,7 +12,7 @@ TF_MODULES  = $(sort $(dir $(wildcard $(CURRENT_DIR)modules/*/)))
 # Container versions
 # -------------------------------------------------------------------------------------------------
 TF_VERSION      = 1.0.11
-TFDOCS_VERSION  = 0.16.0-0.34
+TFDOCS_VERSION  = 0.20.0-0.37
 FL_VERSION      = latest-0.8
 JL_VERSION      = 1.6.0-0.14
 

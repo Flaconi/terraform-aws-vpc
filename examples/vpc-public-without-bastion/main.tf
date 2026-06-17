@@ -26,6 +26,6 @@ module "aws_vpc" {
   tags = {
     Environment = "ci"
     Owner       = "terraform"
-    Project     = "terraform-module-vpc"
+    Project     = "terraform-aws-vpc"
   }
 }
